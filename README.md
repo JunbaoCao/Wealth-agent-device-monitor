@@ -1,10 +1,12 @@
 # Wealth device-inspector · 设备监察
 
-English | [中文](README.zh.md)
+English | [中文](README.zh.md) | **[架构白皮书](WHITEPAPER.md)**
 
 **Wealth（威尔思）** 出品的开源**设备监察 agent**：在任意电脑上**一键自查**系统、硬件、语言、编码、时区，自动生成属于那台电脑自己的 `设备档案.md`，防止环境出错。它是你 agent 的**架构底层**——先懂自己的设备，再跑任何智能体。
 
 **License: MIT**
+
+> 📖 想了解整个项目怎么组织、数据怎么流动、怎么扩展？看 **[WHITEPAPER.md（架构白皮书）](WHITEPAPER.md)**。
 
 ---
 
@@ -38,6 +40,7 @@ An open-source **device-inspector** for AI agents. Its job is not auditing finan
 Wealth-device-inspector/
 ├── README.md              ← This file (English usage guide)
 ├── README.zh.md           ← Chinese usage guide
+├── WHITEPAPER.md          ← Architecture whitepaper (organization, data flow, extension)
 ├── SKILL.md               ← Reusable generic skill definition (for AI skill discovery)
 ├── agent/
 │   └── SOUL.md            ← Device-inspector persona (generic, no machine-specific data)
