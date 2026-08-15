@@ -1,0 +1,119 @@
+# Wealth device-inspector · 设备监察
+
+[English](README.md) | 中文
+
+**威尔思（Wealth）** 出品的开源**设备监察 agent**：在任意电脑上**一键自查**系统、硬件、语言、编码、时区，自动生成属于那台电脑自己的 `设备档案.md`，防止环境出错。它是你 agent 的**架构底层**——先懂自己的设备，再跑任何智能体。
+
+**开源协议：MIT**
+
+---
+
+## 它是什么
+
+一套开源的**设备监察（device inspector）**agent。它的职责**不是审计财务**——而是**检查机器环境**，让 agent 永远不会被自己的系统绊倒：编码错、区域错、运行时缺、文本乱码。
+
+**核心思想：agent 先了解自己的机器，再行动。**
+
+- 检查系统、硬件、CPU、内存、磁盘、GPU、网卡、已装软件、编码、时区、语言区域。
+- 生成**属于那台电脑自己的设备档案.md**。
+- 预防经典坑：乱码（mojibake）、代码页错（936/GBK vs UTF-8）、LF/CRLF 不一致、语言时区错。
+
+---
+
+## 功能特性
+
+- ✅ **一键检查** —— 一个脚本扫清一切。
+- ✅ **跨平台** —— Windows（PowerShell）+ macOS/Linux（Python）。
+- ✅ **自动生成设备档案.md** —— 专属那台机器。
+- ✅ **后台守护** —— 静默心跳、写日志到 Obsidian、安全自愈指引（不经你同意绝不改系统）。
+- ✅ **技能与工具注册** —— 给任何 DeepSeek Harness / Cherry Studio 会话注册 `device-inspector` 技能和 `check_device` 工具。
+- ✅ **RAG-ready** —— 把档案向量化成本地可查询知识库。
+- ✅ **有底线、讲真话** —— 只检查和解释，查不到就标注"待手动确认"。
+
+---
+
+## 目录结构
+
+```
+Wealth-device-inspector/
+├── README.md              ← 本文件（英文使用说明）
+├── README.zh.md           ← 中文使用说明
+├── SKILL.md               ← 可复用的通用技能定义（供AI技能目录发现）
+├── agent/
+│   └── SOUL.md            ← 设备监察人设（通用版，不含任何具体机器数据）
+├── device-monitor-plugin/ ← 后台守护插件（DeepSeek Harness 动态插件）
+│   ├── plugin.js          ← 插件源码（心跳/日志/工具/技能注册）
+│   └── package.json       ← 插件元数据
+├── scripts/               ← 设备扫描脚本（跨平台）
+│   ├── scan-device.ps1    ← Windows PowerShell 脚本
+│   └── scan-device.py     ← Python 脚本（Win/Mac/Linux 通用）
+├── format/                ← 落地格式规范
+│   ├── 设备档案模板.md      ← 空模板（扫描脚本填这个）
+│   └── 格式与编码.md        ← 通用格式/编码/时区规范
+└── docs/                  ← 方法论文档
+    ├── 通用技能.md         ← 换电脑照着做的方法论
+    ├── 知识图谱与RAG.md    ← RAG 知识库接入框架
+    └── 后台守护与自愈.md    ← 后台静默守护与自愈说明
+```
+
+---
+
+## 快速开始（普通用户）
+
+**Windows（PowerShell）：**
+```powershell
+powershell -ExecutionPolicy Bypass -File .\scripts\scan-device.ps1
+```
+
+**macOS / Linux：**
+```bash
+python3 scripts/scan-device.py
+```
+
+运行后会在当前目录生成 **`设备档案.md`**——这台电脑的完整信息。
+
+### 作为智能体使用（进阶）
+
+把 `agent/SOUL.md` 放进 Cherry Studio 的 `Data\Agents\<GUID>\`，或挂到 DeepSeek Harness 的 agent 预设。
+
+---
+
+## 生成的设备档案长这样
+
+```markdown
+# 设备档案（本机自动生成）
+
+## 系统
+| 计算机名 | LAPTOP-XXXX |
+| 系统 | Windows 11 25H2 (Build 26200) |
+| 架构 | x64 |
+
+## 处理器 CPU
+| 型号 | AMD Ryzen 5 7520U |
+| 主频 | 2795 MHz |
+
+## 内存 / 磁盘
+| 内存 | 15.2 GB |
+| 磁盘 | C: 205GB; D: 394GB; E: 354GB |
+
+## 语言 / 时区 / 编码
+| 系统语言 | zh-CN |
+| 时区 | UTC+08:00 (北京) |
+| 编码 | UTF-8 |
+```
+
+---
+
+## 社区与支持
+
+- 反馈/issues：[GitHub Issues](https://github.com/JunbaoCao/Wealth-device-inspector/issues)
+- 在 MIT 许可下自由 fork、改造、复用。
+- 给你的 fork 打上 `dsh-plugin` 话题，便于被发现。
+
+## 开源协议
+
+[MIT](LICENSE)
+
+---
+
+*模板由威尔思（Wealth）制作，供任何人检查和了解自己的电脑。*
