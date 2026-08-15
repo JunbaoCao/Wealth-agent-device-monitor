@@ -60,21 +60,44 @@ Wealth-device-inspector/
 
 ## Quick start
 
+### Option 1: Scan with a script (simplest)
+
 **Windows (PowerShell):**
-```powershell
-powershell -ExecutionPolicy Bypass -File .\scripts\scan-device.ps1
-```
+1. Download or clone this repo:
+   ```powershell
+   git clone https://github.com/JunbaoCao/Wealth-device-inspector.git
+   cd Wealth-device-inspector
+   ```
+2. Run the PowerShell scan script (one click):
+   ```powershell
+   powershell -ExecutionPolicy Bypass -File .\scripts\scan-device.ps1
+   ```
+3. A file `设备档案.md` appears in the current folder — the full picture of this machine.
 
 **macOS / Linux:**
 ```bash
+git clone https://github.com/JunbaoCao/Wealth-device-inspector.git
+cd Wealth-device-inspector
 python3 scripts/scan-device.py
 ```
 
-This generates `设备档案.md` — the full picture of this machine.
+### Option 2: Use as an agent (advanced)
 
-### Use as an agent (advanced)
+Put `agent/SOUL.md` into Cherry Studio's `Data\Agents\<GUID>\` or mount it to a DeepSeek Harness agent preset. The device-inspector then becomes an agent that proactively corrects misconceptions and stays honest.
 
-Put `agent/SOUL.md` into Cherry Studio's `Data\Agents\<GUID>\` or mount to a DeepSeek Harness agent preset.
+### What each script does
+
+| File | What it does | When to use it |
+|------|-------------|----------------|
+| `scripts/scan-device.ps1` | PowerShell script: scans system/CPU/RAM/disk/GPU/NIC/software/encoding/timezone, writes `设备档案.md` | Windows users, one-click inspection |
+| `scripts/scan-device.py` | Python script: same scan, cross-platform | Mac/Linux, or if you prefer Python |
+| `device-monitor-plugin/plugin.js` | DeepSeek Harness dynamic plugin: heartbeat + logs to Obsidian + `check_device` tool + skill registration | When running inside DeepSeek Harness |
+
+### How to install the agent (for developers)
+
+1. Clone this repo, then in a DSH session register the plugin (`device-monitor-plugin/plugin.js`).
+2. Or put `agent/SOUL.md` into a Cherry Studio agent folder.
+3. The `check_device` tool becomes callable by your agent; the `device-inspector` skill appears in the skill catalog.
 
 ---
 
