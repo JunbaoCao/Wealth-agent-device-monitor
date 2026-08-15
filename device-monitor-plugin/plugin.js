@@ -91,8 +91,8 @@ return {
     const skills = ctx.get('skills')
     if (skills !== undefined) {
       skills.register({
-        name: 'device-monitor',
-        description: '设备环境监察：摸清系统/硬件/软件/编码/时区，后台守护与自愈。详见Obsidian监察师文件夹。',
+        name: 'device-inspector',
+        description: '设备监察：摸清系统/硬件/软件/编码/时区，后台守护与自愈。详见Obsidian监察师文件夹。',
         path: ''
       })
     }
