@@ -1,7 +1,7 @@
 ---
-name: device-monitor
-description: 设备环境监察技能。让智能体在任意一台电脑上检查自己的系统、硬件、软件、编码、时区，并生成设备档案。配合后台守护与 RAG 使用。此技能是泛式模板，不绑定特定机器。
-version: 1.0.0
+name: device-inspector
+description: 设备监察技能。让智能体在任意一台电脑上检查自己的系统、硬件、软件、编码、时区，并生成设备档案.md。配合后台守护与 RAG 使用。此技能是泛式模板，不绑定特定机器。
+version: 1.1.0
 ---
 
 # 设备监察技能 (Device Monitor Skill)
