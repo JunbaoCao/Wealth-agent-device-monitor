@@ -8,6 +8,12 @@ English | [中文](README.zh.md) | **[架构白皮书](WHITEPAPER.md)**
 
 > 📖 想了解整个项目怎么组织、数据怎么流动、怎么扩展？看 **[WHITEPAPER.md（架构白皮书）](WHITEPAPER.md)**。
 
+## In plain words (What this is for)
+
+> **You don't need to be technical.** This tool helps an AI agent (or you) **figure out your own computer first**, before it tries to do anything else. It checks: what system you have, what hardware, what language/encoding, what timezone — and writes it all into a `设备档案.md` file. This prevents the classic problems (garbled text, wrong language, broken code) that happen when an agent doesn't know its machine keyboard。
+
+**One click → you know your computer. That's all.**
+
 ---
 
 ## What it is
