@@ -53,7 +53,8 @@ Wealth-device-inspector/
 └── docs/                  ← Methodology documents
     ├── 通用技能.md         ← Reusable methodology for any machine
     ├── 知识图谱与RAG.md    ← RAG knowledge-base integration framework
-    └── 后台守护与自愈.md    ← Background-guardian & self-healing guide
+    ├── 后台守护与自愈.md    ← Background-guardian & self-healing guide
+    └── 文件清单与归属.md    ← Where each file goes (local vs repo)
 ```
 
 ---
