@@ -1,0 +1,13 @@
+{
+  "name": "device-monitor",
+  "version": "1.0.0",
+  "description": "监察师后台守护插件：静默运行、周期心跳、写日志到Obsidian、注册设备检查工具与技能。通用版，自动探测Obsidian笔记库。",
+  "type": "commonjs",
+  "main": "plugin.js",
+  "cordis": {
+    "plugin": {
+      "name": "device-monitor",
+      "description": "设备环境监察：后台守护与自愈。详见Obsidian监察师文件夹。"
+    }
+  }
+}

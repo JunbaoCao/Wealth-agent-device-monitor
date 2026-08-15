@@ -1,0 +1,11 @@
+# 监察师模板忽略清单
+node_modules/
+.DS_Store
+*.log
+设备档案.md
+知识库/
+日志/
+流程备份/
+上传文件/
+.obsidian/workspace.json
+.cherrystudio/
