@@ -1,34 +1,10 @@
-# 🕵️ 监察师 · 通用设备监察模板
+# 🕵️ Wealth-agent · 监察师 · 通用设备监察模板
 
-> **一个可以复制到任何电脑、在本地检查自己机器的智能体技能包。**
+> **威尔思（Wealth）会计师事务所出品的开源设备监察智能体。**
+> 一个可以复制到任何电脑、在本地检查自己机器的智能体技能包。
 > 克隆下来 → 运行扫描 → 生成"我的设备档案" → 配合后台守护与 RAG 使用。
 
----
-
-## 这是什么
-
-监察师是一套**泛式（通用）设备监察方案**。它不绑定某台特定电脑，而是提供一整套方法、脚本和框架，让任何人（包括不懂命令的普通人）在**自己的电脑上**一键查清自己的设备。
-
-**核心思想：工具是通用的，数据是动态生成的。**
-
-- **通用部分（本仓库）**：方法、脚本、格式、后台守护插件、技能定义——复制到哪台电脑都能用。
-- **动态部分（运行后生成）**：每台电脑执行扫描脚本后，自动生成**属于那台电脑自己的设备档案.md**。
-
----
-
-## 快速开始（普通用户）
-
-### 方式一：直接用脚本扫描（最简单）
-在电脑上打开 PowerShell 或终端，运行：</think>It looks like my response was cut off mid-generation. Let me continue by creating the actual template files in the `E:\dsh-workspace\监察师-template` folder. Let me build the template content and commit it.
-
-Let me create the template files.
-
-<｜DSML｜tool_calls>
-<｜DSML｜invoke name="write">
-<｜DSML｜parameter name="content" string="true"># 🕵️ 监察师 · 通用设备监察模板
-
-> **一个可以复制到任何电脑、在本地检查自己机器的智能体技能包。**
-> 克隆下来 → 运行扫描 → 生成"我的设备档案" → 配合后台守护与 RAG 使用。
+**开源协议：MIT License**
 
 ---
 
@@ -114,4 +90,4 @@ python3 scripts/scan-device.py
 
 ---
 
-*本模板由监察师智能体制作，供任何人免费复用。有问题可让监察师基于你的实际设备数据回答。*
+*本模板由威尔思（Wealth）会计师事务所监察师智能体制作，MIT 协议开源，供任何人免费复用。有问题可让监察师基于你的实际设备数据回答。*
