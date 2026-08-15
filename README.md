@@ -1,93 +1,119 @@
-# 🕵️ Wealth-agent · 监察师 · 通用设备监察模板
+# Wealth device-inspector · 设备监察
 
-> **威尔思（Wealth）会计师事务所出品的开源设备监察智能体。**
-> 一个可以复制到任何电脑、在本地检查自己机器的智能体技能包。
-> 克隆下来 → 运行扫描 → 生成"我的设备档案" → 配合后台守护与 RAG 使用。
+English | [中文](README.zh.md)
 
-**开源协议：MIT License**
+**Wealth（威尔思）** 出品的开源**设备监察 agent**：在任意电脑上**一键自查**系统、硬件、语言、编码、时区，自动生成属于那台电脑自己的 `设备档案.md`，防止环境出错。它是你 agent 的**架构底层**——先懂自己的设备，再跑任何智能体。
 
----
-
-## 这是什么
-
-监察师是一套**泛式（通用）设备监察方案**。它不绑定某台特定电脑，而是提供一整套方法、脚本和框架，让任何人（包括不懂命令的普通人）在**自己的电脑上**一键查清自己的设备。
-
-**核心思想：工具是通用的，数据是动态生成的。**
-
-- **通用部分（本仓库）**：方法、脚本、格式、后台守护插件、技能定义——复制到哪台电脑都能用。
-- **动态部分（运行后生成）**：每台电脑执行扫描脚本后，自动生成**属于那台电脑自己的设备档案.md**。
+**License: MIT**
 
 ---
 
-## 快速开始（普通用户）
+## What it is
 
-### 方式一：直接用脚本扫描（最简单）
-在电脑上打开 PowerShell（Windows）或终端（Mac/Linux），运行：
+An open-source **device-inspector** for AI agents. Its job is not auditing finances — it is **inspecting the machine environment** so an agent never trips over its own system: wrong encoding, broken locale, missing runtime, garbled text.
 
-**Windows（PowerShell）：**
+**Core idea: the agent knows its machine first, then acts.**
+
+- Inspects system, hardware, CPU, RAM, disk, GPU, NIC, installed software, encoding, timezone, locale.
+- Generates a `设备档案.md` specific to that computer.
+- Prevents the classic failures: mojibake (乱码), wrong code page (936/GBK vs UTF-8), LF/CRLF mismatch, wrong language/zone.
+
+---
+
+## Features
+
+- ✅ **One-click inspection** — a single script scans everything.
+- ✅ **Cross-platform** — Windows (PowerShell) + macOS/Linux (Python).
+- ✅ **Auto-generates device-report.md** — tailored to that exact machine.
+- ✅ **Background guardian** — silent heartbeat, logs to Obsidian, safe self-healing guidance (never modifies your system without consent).
+- ✅ **Skill & tool registration** — `device-inspector` skill + `check_device` tool for any DeepSeek Harness / Cherry Studio session.
+- ✅ **RAG-ready** — vectorize reports into a local queryable knowledge base.
+- ✅ **Honest & bottom-line** — only inspects and explains; flags unreadable items as "待手动确认".
+
+---
+
+## Repository structure
+
+```
+Wealth-device-inspector/
+├── README.md              ← This file (English usage guide)
+├── README.zh.md           ← Chinese usage guide
+├── SKILL.md               ← Reusable generic skill definition (for AI skill discovery)
+├── agent/
+│   └── SOUL.md            ← Device-inspector persona (generic, no machine-specific data)
+├── device-monitor-plugin/ ← Background-guardian plugin (DeepSeek Harness dynamic plugin)
+│   ├── plugin.js          ← Plugin source (heartbeat / logging / tool / skill registration)
+│   └── package.json       ← Plugin metadata
+├── scripts/               ← Device scan scripts (cross-platform)
+│   ├── scan-device.ps1    ← Windows PowerShell script
+│   └── scan-device.py     ← Python script (Win / Mac / Linux)
+├── format/                ← Output format spec
+│   ├── 设备档案模板.md      ← Empty template (filled by scan scripts)
+│   └── 格式与编码.md        ← Generic format / encoding / timezone spec
+└── docs/                  ← Methodology documents
+    ├── 通用技能.md         ← Reusable methodology for any machine
+    ├── 知识图谱与RAG.md    ← RAG knowledge-base integration framework
+    └── 后台守护与自愈.md    ← Background-guardian & self-healing guide
+```
+
+---
+
+## Quick start
+
+**Windows (PowerShell):**
 ```powershell
 powershell -ExecutionPolicy Bypass -File .\scripts\scan-device.ps1
 ```
-**Mac / Linux：**
+
+**macOS / Linux:**
 ```bash
 python3 scripts/scan-device.py
 ```
 
-运行后会在当前目录生成 **`设备档案.md`**，里面就是这台电脑的完整信息：系统、CPU、内存、磁盘、GPU、网卡、软件、编码、时区。
+This generates `设备档案.md` — the full picture of this machine.
 
-### 方式二：作为智能体使用（进阶）
-把 `agent/SOUL.md` 放进 Cherry Studio 的 `Data\Agents\<GUID>\`，或挂到 DeepSeek Harness 的 agent 预设，监察师就成为一个会主动纠错、有底线的智能体。
+### Use as an agent (advanced)
+
+Put `agent/SOUL.md` into Cherry Studio's `Data\Agents\<GUID>\` or mount to a DeepSeek Harness agent preset.
 
 ---
 
-## 目录结构
+## The generated report looks like
 
+```markdown
+# 设备档案（本机自动生成）
+
+## 系统
+| 计算机名 | LAPTOP-XXXX |
+| 系统 | Windows 11 25H2 (Build 26200) |
+| 架构 | x64 |
+
+## 处理器 CPU
+| 型号 | AMD Ryzen 5 7520U |
+| 主频 | 2795 MHz |
+
+## 内存 / 磁盘
+| 内存 | 15.2 GB |
+| 磁盘 | C: 205GB; D: 394GB; E: 354GB |
+
+## 语言 / 时区 / 编码
+| 系统语言 | zh-CN |
+| 时区 | UTC+08:00 (北京) |
+| 编码 | UTF-8 |
 ```
-监察师-template/
-├── README.md                 ← 本文件（使用说明）
-├── SKILL.md                  ← 可复用的通用技能定义（供AI技能目录发现）
-├── agent/
-│   └── SOUL.md               ← 监察师人设（通用版，不含任何具体机器数据）
-├── device-monitor-plugin/    ← 后台守护插件（DeepSeek Harness 动态插件）
-│   ├── plugin.js             ← 插件源码（心跳/日志/工具/技能注册）
-│   └── package.json          ← 插件元数据
-├── scripts/                  ← 设备扫描脚本（跨平台）
-│   ├── scan-device.ps1       ← Windows PowerShell 脚本
-│   └── scan-device.py        ← Python 脚本（Win/Mac/Linux 通用）
-├── format/                   ← 落地格式规范
-│   ├── 设备档案模板.md        ← 空模板（扫描脚本填这个）
-│   └── 格式与编码.md          ← 通用格式/编码/时区规范
-└── docs/                     ← 方法论文档
-    ├── 通用技能.md            ← 换电脑照着做的方法论
-    ├── 知识图谱与RAG.md       ← RAG 知识库接入框架
-    └── 后台守护与自愈.md      ← 后台静默守护与自愈说明
-```
 
 ---
 
-## 模板内容清单（已全部就位）
+## Community and support
 
-| 文件 | 作用 |
-|------|------|
-| `SKILL.md` | 技能定义，让任何AI会话能发现"监察师"技能 |
-| `agent/SOUL.md` | 监察师人设（有底线+苏格拉底纠错+普通人友好） |
-| `device-monitor-plugin/plugin.js` | 后台守护插件（心跳、日志到Obsidian、设备检查工具） |
-| `scripts/scan-device.ps1` | Windows 一键扫描脚本，生成设备档案 |
-| `scripts/scan-device.py` | 跨平台 Python 扫描脚本 |
-| `format/设备档案模板.md` | 设备档案空模板 |
-| `format/格式与编码.md` | 编码/换行/时区通用规范 |
-| `docs/通用技能.md` | 换电脑照做的方法论 |
-| `docs/知识图谱与RAG.md` | 知识库/RAG 接入框架 |
-| `docs/后台守护与自愈.md` | 后台静默守护与自愈说明 |
+- Feedback / issues: [GitHub Issues](https://github.com/JunbaoCao/Wealth-device-inspector/issues)
+- Fork, adapt, and reuse freely under the MIT license.
+- Tag your fork with the `dsh-plugin` topic for discoverability.
+
+## License
+
+[MIT](LICENSE)
 
 ---
 
-## 我该怎么用（三步）
-
-1. **克隆或下载本仓库**到你的电脑。
-2. **运行扫描脚本**（`scan-device.ps1` 或 `scan-device.py`）→ 生成你的 `设备档案.md`。
-3. **把档案放进 Obsidian**，配合监察师人设和后台守护使用；要查资料就接 RAG（见 docs）。
-
----
-
-*本模板由威尔思（Wealth）会计师事务所监察师智能体制作，MIT 协议开源，供任何人免费复用。有问题可让监察师基于你的实际设备数据回答。*
+*Crafted by Wealth (威尔思) for anyone to inspect and understand their own computer.*
