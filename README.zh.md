@@ -53,28 +53,52 @@ Wealth-device-inspector/
 └── docs/                  ← 方法论文档
     ├── 通用技能.md         ← 换电脑照着做的方法论
     ├── 知识图谱与RAG.md    ← RAG 知识库接入框架
-    └── 后台守护与自愈.md    ← 后台静默守护与自愈说明
+    ├── 后台守护与自愈.md    ← 后台静默守护与自愈说明
+    └── 文件清单与归属.md    ← 每个文件该放本地还是仓库
 ```
 
 ---
 
 ## 快速开始（普通用户）
 
+### 方式一：直接用脚本扫描（最简单）
+
 **Windows（PowerShell）：**
-```powershell
-powershell -ExecutionPolicy Bypass -File .\scripts\scan-device.ps1
-```
+1. 下载或克隆本仓库：
+   ```powershell
+   git clone https://github.com/JunbaoCao/Wealth-device-inspector.git
+   cd Wealth-device-inspector
+   ```
+2. 运行 PowerShell 扫描脚本（一键）：
+   ```powershell
+   powershell -ExecutionPolicy Bypass -File .\scripts\scan-device.ps1
+   ```
+3. 当前文件夹出现 `设备档案.md`——这台电脑的完整信息。
 
 **macOS / Linux：**
 ```bash
+git clone https://github.com/JunbaoCao/Wealth-device-inspector.git
+cd Wealth-device-inspector
 python3 scripts/scan-device.py
 ```
 
-运行后会在当前目录生成 **`设备档案.md`**——这台电脑的完整信息。
+### 方式二：作为智能体使用（进阶）
 
-### 作为智能体使用（进阶）
+把 `agent/SOUL.md` 放进 Cherry Studio 的 `Data\Agents\<GUID>\`，或挂到 DeepSeek Harness 的 agent 预设。设备监察就成为一个会主动纠错、有底线的智能体。
 
-把 `agent/SOUL.md` 放进 Cherry Studio 的 `Data\Agents\<GUID>\`，或挂到 DeepSeek Harness 的 agent 预设。
+### 每个脚本干什么
+
+| 文件 | 干什么 | 什么时候用 |
+|------|--------|-----------|
+| `scripts/scan-device.ps1` | PowerShell 脚本：扫描系统/CPU/内存/磁盘/GPU/网卡/软件/编码/时区，写出 `设备档案.md` | Windows 用户，一键检查 |
+| `scripts/scan-device.py` | Python 脚本：同样的扫描，跨平台 | Mac/Linux，或想用 Python 时 |
+| `device-monitor-plugin/plugin.js` | DeepSeek Harness 动态插件：心跳 + 写日志到 Obsidian + `check_device` 工具 + 技能注册 | 在 DeepSeek Harness 里运行时 |
+
+### 安装 agent（给开发者）
+
+1. 克隆本仓库后，在 DSH 会话里注册插件（`device-monitor-plugin/plugin.js`）。
+2. 或把 `agent/SOUL.md` 放进 Cherry Studio 的 agent 文件夹。
+3. 你的 agent 就能调用 `check_device` 工具，`device-inspector` 技能会出现在技能目录。
 
 ---
 
