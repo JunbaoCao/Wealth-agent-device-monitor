@@ -36,11 +36,18 @@ python3 scripts/scan-device.py
 ```
 输出：在当前目录生成 `设备档案.md`。
 
-### 第2步：作为智能体
-把 `agent/SOUL.md` 放进 Cherry Studio 的 `Data\Agents\<GUID>\`，或挂到 DSH 预设。监察师会主动纠错、有底线、面向普通人。
+### 第2步：盘点可入RAG的数据（按优先级）
+扫描本机各盘，按以下优先级判断哪些资料适合入知识库（RAG）：
+1. **核心业务数据**（如 wealth 数据资产）→ 最优先
+2. **工作方法沉淀**（AI对话记录、skill库、白皮书）→ 第二
+3. **专项项目资料**（如乡宁国企审计）→ 第三
+4. **环境档案**（设备档案等本地Obsidian）→ 已在本地，随查随用
+5. **普通用户目录**（Documents/OneDrive）→ 基本为空，暂不处理
 
-### 第3步：接 RAG（可选）
-把设备档案和资料向量化进知识库（见 `docs/知识图谱与RAG.md`），让 AI 基于本地资料回答。
+参考格式：`docs/知识图谱与RAG.md` 的"数据清单"部分。
+
+### 第3步：作为智能体
+把 `agent/SOUL.md` 放进 Cherry Studio 的 `Data\Agents\<GUID>\`，或挂到 DSH 预设。监察师会主动纠错、有底线、面向普通人。
 
 ## 技能边界
 
@@ -54,6 +61,6 @@ python3 scripts/scan-device.py
 - `scripts/scan-device.ps1` / `scan-device.py` — 扫描脚本
 - `format/设备档案模板.md` — 档案模板
 - `docs/通用技能.md` — 方法论
-- `docs/知识图谱与RAG.md` — RAG 接入
+- `docs/知识图谱与RAG.md` — RAG 接入 + 数据清单
 - `docs/后台守护与自愈.md` — 后台守护
 - `device-monitor-plugin/` — 后台守护插件源码
